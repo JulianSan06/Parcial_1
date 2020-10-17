@@ -4,7 +4,7 @@
 using namespace std;
 
 int X(int, int, int, int);
-int Y(int, int, int);
+int Y(int, int, int, int);
 
 
 int main()
@@ -12,6 +12,7 @@ int main()
      //COORDENADAS DE LOS CAÑONES----------------------------------------------------------
     int coordenadasO[2]={0,0}, coordenadasD[2];
     int anguloO, anguloD = 0, velO= 0, velD= 0;
+    bool attack = false;
 
     cout << "ingrese la altura del cañon ofensivo: " << endl;
     cin >> coordenadasO[1];
@@ -23,7 +24,10 @@ int main()
     for(int i = 0; i<2;i++){
         cout << "ingrese la coordenada " << i << " del cañon defensivo: " << endl;
         cin >> coordenadasD[i];
+
     }
+    int *a = coordenadasO; //puntero ofensivo
+    int *b = coordenadasD; //puntero defensivo
 
     int dis = coordenadasD[0];
     cout << endl;
@@ -44,12 +48,21 @@ int main()
             int x = 0;
             int y = 0;
             for(int t = 1; t<=5; t++){
-                x = X(coordenadasD[0], velD, anguloD, t);
-                y = Y(coordenadasD[1], velD, anguloD, t);
+                x = X(*a, velD, anguloD, t);
+                y = Y(*(a+1), velD, anguloD, t);
 
-                if()
+                if(*b <= x+(0.05*dis) or y-(0.05*dis) >= *(b+1)){
+                    cout << "----------------¡ALERTA DE MISIL!-------------------------------" << endl;
+                    attack = true;
+                }
+                else{
+                    cout << "sin alerta de misil";
+                }
 
-            };
+
+
+
+            }
 
 
             break;
@@ -72,7 +85,7 @@ int X(int xi, int vi, int angulo, int t){
 
 int Y(int yi, int vi, int angulo, int t){
     int y = 0;
-    y = yi + (vi*(cos(angulo))*(t)) + (0,5*(9.8)*(t*t));
+    y = yi + (vi*(cos(angulo))*(t)) + (0.5*(9.8)*(t*t));
     return y;
 }
 
