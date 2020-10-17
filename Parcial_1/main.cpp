@@ -3,22 +3,22 @@
 
 using namespace std;
 
-int tayectoria_X(int, int, int);
-int rayectoria_Y(int, int, int);
+int X(int, int, int, int);
+int Y(int, int, int);
 
 
 int main()
 {
      //COORDENADAS DE LOS CAÑONES----------------------------------------------------------
     int coordenadasO[2]={0,0}, coordenadasD[2];
-    int anguloO, anguloD;
+    int anguloO, anguloD = 0, velO= 0, velD= 0;
 
     cout << "ingrese la altura del cañon ofensivo: " << endl;
     cin >> coordenadasO[1];
     cout << "ingrese el angulo del cañon ofensivo: " << endl;
     cin >> anguloO;
     cout << "ingrese la velocidad inicial del cañon ofensivo: " << endl;
-
+    cin >> velO;
 
     for(int i = 0; i<2;i++){
         cout << "ingrese la coordenada " << i << " del cañon defensivo: " << endl;
@@ -41,16 +41,40 @@ int main()
         switch (op) {
         case 1:{
            //generar disparos (al menos tres) ofesnsivos que comprometan la integridad del cañon defensivo
-
+            int x = 0;
+            int y = 0;
             for(int t = 1; t<=5; t++){
-                int x = trayectoria
-            }
+                x = X(coordenadasD[0], velD, anguloD, t);
+                y = Y(coordenadasD[1], velD, anguloD, t);
+
+                if()
+
+            };
 
 
-
+            break;
         }
-        case 2:{}
-        case 3:{}
+        case 2:{
+            break;
+        }
+        case 3:{
+            break;
+        }
         }
     }
 }
+
+int X(int xi, int vi, int angulo, int t){
+    int x = 0;
+    x = xi + vi*(sin(angulo))*(t);
+    return x;
+}
+
+int Y(int yi, int vi, int angulo, int t){
+    int y = 0;
+    y = yi + (vi*(cos(angulo))*(t)) + (0,5*(9.8)*(t*t));
+    return y;
+}
+
+
+
