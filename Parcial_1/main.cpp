@@ -6,6 +6,8 @@ using namespace std;
 int X(int, int, int, int);
 int Y(int, int, int, int);
 
+int XD(int, int);
+int YD(int, int);
 
 int main()
 {
@@ -59,8 +61,14 @@ int main()
                     cout << "sin alerta de misil";
                 }
 
+                // DEFENSA DEL CAÑON DEFENSIVO---------------------------------------------------------
+                if(attack == true){
+                    cout << "los parametros: " << endl;
+                    cout << "la exploxion fue en las coordenadas: ("<<x<<','<<y<<')' << endl;
+                    cout << "En un tiempo"
 
 
+                }
 
             }
 
@@ -90,4 +98,12 @@ int Y(int yi, int vi, int angulo, int t){
 }
 
 
+int  XD(int x, int t){
+
+    }
+
+
+int YD(int y, int t){
+
+}
 
