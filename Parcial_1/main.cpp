@@ -5,8 +5,7 @@ using namespace std;
 
 float X(float xi, float vi, float angulo, float t);
 float Y(float yi, float vi, float angulo, float t);
-
-
+float Velocidad_Defensa(float, float, int);
 int main()
 {
      //COORDENADAS DE LOS CAÑONES----------------------------------------------------------
@@ -48,7 +47,7 @@ int main()
 
             int NumDisparos = 0;
 
-            cout << "ingrese el numero de disparos que va a realizar: " << endl;
+            cout << "Ingrese el numero de disparos que va a realizar: " << endl;
             cin >> NumDisparos;
 
             for(int i = 1; i <= NumDisparos; i++ ){
@@ -78,8 +77,8 @@ int main()
 
                     if(attack == true){
                         cout << "los parametros de la simulacion fueron: " << endl;
-                        cout << "la exploxion fue en las coordenadas: ("<<x<<','<<y<<')' << endl;
-                        cout << "En un tiempo: t= " << cont+2 << endl;
+                        cout << "la explosion fue en las coordenadas: ("<<x<<','<<y<<')' << endl;
+                        cout << "En un tiempo: t= " << cont << endl;
                         cout << "la distacia recorrida por el misil ofensivo fue: "<< x << " horizontal y " << y << " vertical"<< endl;
                         cout << "la distacia recorrida por el misil defensivo fue: "<< dis-x << " horizontal y " << y-*(b+1) << " vertical"<< endl;
 
@@ -93,11 +92,44 @@ int main()
             break;
         }
         case 2:{
+            int Numdisparos = 0;
+            cout <<"ingrese el numero de disparos que va a simular: ";
+            cin >> Numdisparos;
+
+            for(int i = 1; i <= Numdisparos; i++ ){
+                float x, y;
+                cout << "ingrese el angulo de la defensa para el lanzamiento " << i  << endl;
+                cin >> anguloD;
+                anguloD = (anguloO*3.1416)/180;
+                int velDx = 0, velDy = 0;
+
+                for(float t = 2; t<10000; t += 0.5){
+                    velDx = Velocidad_Defensa(anguloD, t, *a);
+                    velDy = Velocidad_Defensa(anguloD, t, *b);
+                    x = X(*a, velDx, anguloO, t);
+                    y = Y(*(a+1), velDy, anguloO, t);
+
+                    if(x == 0 && y == *(a+1)){
+
+
+                    }
+                }
+
+
+
+
+
+
+            }
             break;
         }
         case 3:{
             break;
         }
+        case 4:{
+            break;
+        }
+
         }
     }
 }
@@ -115,3 +147,9 @@ float Y(float yi, float vi, float angulo, float t){
 }
 
 
+float Velocidad_Defensa(float anguloD, float t, int *a){
+    int VelD = 0;
+    VelD =  (*(a+1))/(t+2)*cos(anguloD);
+    return VelD;
+
+}
