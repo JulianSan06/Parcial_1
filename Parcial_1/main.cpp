@@ -61,31 +61,34 @@ int main()
 
                 int x = 0;
                 int y = 0;
-                int cont = 0;
+                float cont = 0;
                 for(float t = 0; t<=1000; t+= 0.5){
                     x = X(*a, velO, anguloO, t);
                     y = Y(*(a+1), velO, anguloO, t);
 
-                    if(*b <= x+(0.05*dis) or y-(0.05*dis) >= *(b+1)){
+                    if(*b <= x+(0.05*dis)){
                         cout << "----------------¡ALERTA DE MISIL!-------------------------------" << endl;
                         attack = true;
-                        break;
                     }
 
                     else{
                         cout << "sin alerta de misil" << endl;
                     }
-                    cont +=1;
+                    cont +=0.5;
+
+                    if(attack == true){
+                        cout << "los parametros de la simulacion fueron: " << endl;
+                        cout << "la exploxion fue en las coordenadas: ("<<x<<','<<y<<')' << endl;
+                        cout << "En un tiempo: t= " << cont+2 << endl;
+                        cout << "la distacia recorrida por el misil ofensivo fue: "<< x << " horizontal y " << y << " vertical"<< endl;
+                        cout << "la distacia recorrida por el misil defensivo fue: "<< dis-x << " horizontal y " << y-*(b+1) << " vertical"<< endl;
+
+                        cout << '\n' << '\n' <<'\n' << endl;
+                        attack = false;
+                        break;
+                    }
 
                 }
-                if(attack == true){
-                    cout << "los parametros de la simulacion fueron: " << endl;
-                    cout << "la exploxion fue en las coordenadas: ("<<x<<','<<y<<')' << endl;
-                    cout << "En un tiempo: t= " << cont+2 << endl;
-                    cout << "la distacia recorrida por el misil ofensivo fue: "<< x << "horizonatal y " << y << " vertical"<< endl;
-                    cout << "la distacia recorrida por el misil defensivo fue: "<< dis-x << "horizonatal y " << y-*b << " vertical"<< endl;
-                }
-
             }
             break;
         }
