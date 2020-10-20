@@ -42,8 +42,49 @@ int main()
         cin >> op;
         switch (op) {
         case 1:{
+           cout << "ingrese el angulo con el que lanzara el misil atancante: ";
+           cin >> anguloO;
 
-            //generar disparos (al menos tres) ofesnsivos que comprometan la integridad del cañon defensivo
+           int x, y;
+           for(int i= 0; i <=3; i++){
+               int Vi = 0, Vf = 0, intervalo = 0;
+               cout << "ingrese la velocidad minima: ";
+               cin >> Vi;
+               cout << "ingrese la velocidad maxima: ";
+               cin >> Vf;
+               cout << "ingrese el intervalo de la suma: ";
+               cin >>intervalo;
+
+               for(int velO = Vi; velO <=Vf; velO +=intervalo){
+                   for(float t = 0; t<=1000; t+= 1){
+                       x = X(*a, velO, anguloO, t);
+                       y = Y(*(a+1), velO, anguloO, t);
+
+                       if((sqrt(pow(*b, 2)+pow(*(b+1), 2))- sqrt(pow(x, 2)+pow(y,2))) <= 0.05*(*b)){
+                           cout << "disparo que compromete la integridad del Canion defensivo: " << endl;
+                           cout << "velocidad: " << velO << endl;
+                           cout << "angulo: " << anguloO << endl;
+                           cout << "tiempo: " << t << endl;
+                       }
+                       else{
+                           cout << "disparo no efectivo con los parameros ingresados" << endl;
+                           cout << "velocidad: " << velO << endl;
+                           cout << "angulo: " << anguloO << endl;
+                           cout << "tiempo: " << t << endl;
+                       }
+                  }
+               }
+
+            }
+           break;
+        }
+        case 2:{
+
+
+            break;
+        }
+        case 3:{
+
 
             int NumDisparos = 0;
 
@@ -89,41 +130,6 @@ int main()
 
                 }
             }
-            break;
-        }
-        case 2:{
-            int Numdisparos = 0;
-            cout <<"ingrese el numero de disparos que va a simular: ";
-            cin >> Numdisparos;
-
-            for(int i = 1; i <= Numdisparos; i++ ){
-                float x, y;
-                cout << "ingrese el angulo de la defensa para el lanzamiento " << i  << endl;
-                cin >> anguloD;
-                anguloD = (anguloO*3.1416)/180;
-                int velDx = 0, velDy = 0;
-
-                for(float t = 2; t<10000; t += 0.5){
-                    velDx = Velocidad_Defensa(anguloD, t, *a);
-                    velDy = Velocidad_Defensa(anguloD, t, *b);
-                    x = X(*a, velDx, anguloO, t);
-                    y = Y(*(a+1), velDy, anguloO, t);
-
-                    if(x == 0 && y == *(a+1)){
-
-
-                    }
-                }
-
-
-
-
-
-
-            }
-            break;
-        }
-        case 3:{
             break;
         }
         case 4:{
