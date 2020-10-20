@@ -5,7 +5,7 @@ using namespace std;
 
 float X(float xi, float vi, float angulo, float t);
 float Y(float yi, float vi, float angulo, float t);
-float Velocidad_Defensa(float, float, int);
+
 int main()
 {
      //COORDENADAS DE LOS CAÑONES----------------------------------------------------------
@@ -81,6 +81,8 @@ int main()
         case 2:{
 
 
+
+
             break;
         }
         case 3:{
@@ -106,13 +108,14 @@ int main()
                     x = X(*a, velO, anguloO, t);
                     y = Y(*(a+1), velO, anguloO, t);
 
-                    if(*b <= x+(0.05*dis)){
-                        cout << "----------------¡ALERTA DE MISIL!-------------------------------" << endl;
+
+                    if((sqrt(pow(*b, 2)+pow(*(b+1), 2))- sqrt(pow(x, 2)+pow(y,2))) <= 0.05*(*b)){
+                        cout << "---------------- ALERTA DE MISIL! -------------------------------" << endl;
                         attack = true;
                     }
 
                     else{
-                        cout << "sin alerta de misil" << endl;
+                        cout << "--------------------------- Sin alerta de misil -------------------------------------" << endl;
                     }
                     cont +=0.5;
 
@@ -122,7 +125,6 @@ int main()
                         cout << "En un tiempo: t= " << cont << endl;
                         cout << "la distacia recorrida por el misil ofensivo fue: "<< x << " horizontal y " << y << " vertical"<< endl;
                         cout << "la distacia recorrida por el misil defensivo fue: "<< dis-x << " horizontal y " << y-*(b+1) << " vertical"<< endl;
-
                         cout << '\n' << '\n' <<'\n' << endl;
                         attack = false;
                         break;
@@ -150,12 +152,4 @@ float Y(float yi, float vi, float angulo, float t){
     float y = 0;
     y = yi + (vi*(sin(angulo))*(t)) + (0.5*(9.8)*(t*t));
     return y;
-}
-
-
-float Velocidad_Defensa(float anguloD, float t, int *a){
-    int VelD = 0;
-    VelD =  (*(a+1))/(t+2)*cos(anguloD);
-    return VelD;
-
 }
