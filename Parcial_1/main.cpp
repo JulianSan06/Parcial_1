@@ -3,23 +3,20 @@
 
 using namespace std;
 
-int X(int, int, int, int);
-int Y(int, int, int, int);
+float X(float xi, float vi, float angulo, float t);
+float Y(float yi, float vi, float angulo, float t);
 
 
 int main()
 {
      //COORDENADAS DE LOS CAÑONES----------------------------------------------------------
     int coordenadasO[2]={0,0}, coordenadasD[2];
-    int anguloO, anguloD = 0, velO= 0, velD= 0;
+    float anguloO, anguloD = 0;
+    float velO= 0, velD= 0;
     bool attack = false;
 
     cout << "ingrese la altura del cañon ofensivo: " << endl;
     cin >> coordenadasO[1];
-    cout << "ingrese el angulo del cañon ofensivo: " << endl;
-    cin >> anguloO;
-    cout << "ingrese la velocidad inicial del cañon ofensivo: " << endl;
-    cin >> velO;
 
     for(int i = 0; i<2;i++){
         cout << "ingrese la coordenada " << i << " del cañon defensivo: " << endl;
@@ -29,8 +26,10 @@ int main()
     int *a = coordenadasO; //puntero ofensivo
     int *b = coordenadasD; //puntero defensivo
 
-    int dis = coordenadasD[0];
+    int dis = *b;
     cout << endl;
+
+
     // CASOS------------------------------------------------------------------------------
 
     int op= 9;
@@ -44,35 +43,50 @@ int main()
         cin >> op;
         switch (op) {
         case 1:{
-           //generar disparos (al menos tres) ofesnsivos que comprometan la integridad del cañon defensivo
-            int x = 0;
-            int y = 0;
-            for(int t = 1; t<=5; t++){
-                x = X(*a, velD, anguloD, t);
-                y = Y(*(a+1), velD, anguloD, t);
 
-                if(*b <= x+(0.05*dis) or y-(0.05*dis) >= *(b+1)){
-                    cout << "----------------¡ALERTA DE MISIL!-------------------------------" << endl;
-                    attack = true;
-                }
-                else{
-                    cout << "sin alerta de misil";
-                }
+            //generar disparos (al menos tres) ofesnsivos que comprometan la integridad del cañon defensivo
 
-                // DEFENSA DEL CAÑON DEFENSIVO---------------------------------------------------------
+            int NumDisparos = 0;
+
+            cout << "ingrese el numero de disparos que va a realizar: " << endl;
+            cin >> NumDisparos;
+
+            for(int i = 1; i <= NumDisparos; i++ ){
+                cout << "ingrese el angulo del ataque para el lanzamiento " << i  << endl;
+                cin >> anguloO;
+                anguloO = (anguloO*3.1416)/180;
+                cout << "ingrese la velocidad inicial del ataque numero:  " << i << endl;
+                cin >> velO;
+
+
+                int x = 0;
+                int y = 0;
+                int cont = 0;
+                for(float t = 0; t<=1000; t+= 0.5){
+                    x = X(*a, velO, anguloO, t);
+                    y = Y(*(a+1), velO, anguloO, t);
+
+                    if(*b <= x+(0.05*dis) or y-(0.05*dis) >= *(b+1)){
+                        cout << "----------------¡ALERTA DE MISIL!-------------------------------" << endl;
+                        attack = true;
+                        break;
+                    }
+
+                    else{
+                        cout << "sin alerta de misil" << endl;
+                    }
+                    cont +=1;
+
+                }
                 if(attack == true){
                     cout << "los parametros de la simulacion fueron: " << endl;
                     cout << "la exploxion fue en las coordenadas: ("<<x<<','<<y<<')' << endl;
-                    cout << "En un tiempo: t= " << t+2 << endl;
+                    cout << "En un tiempo: t= " << cont+2 << endl;
                     cout << "la distacia recorrida por el misil ofensivo fue: "<< x << "horizonatal y " << y << " vertical"<< endl;
                     cout << "la distacia recorrida por el misil defensivo fue: "<< dis-x << "horizonatal y " << y-*b << " vertical"<< endl;
-
-
                 }
 
             }
-
-
             break;
         }
         case 2:{
@@ -85,15 +99,15 @@ int main()
     }
 }
 
-int X(int xi, int vi, int angulo, int t){
-    int x = 0;
-    x = xi + vi*(sin(angulo))*(t);
+float X(float xi, float vi, float angulo, float t){
+    float x = 0.0;
+    x = xi + vi*(cos(angulo))*(t);
     return x;
 }
 
-int Y(int yi, int vi, int angulo, int t){
-    int y = 0;
-    y = yi + (vi*(cos(angulo))*(t)) + (0.5*(9.8)*(t*t));
+float Y(float yi, float vi, float angulo, float t){
+    float y = 0;
+    y = yi + (vi*(sin(angulo))*(t)) + (0.5*(9.8)*(t*t));
     return y;
 }
 
